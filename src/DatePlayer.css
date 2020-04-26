@@ -1,0 +1,74 @@
+.DatePlayer button, select {
+	-webkit-appearance: none;
+	border: solid 1px black;
+	border-radius: 4px;
+	background-color: white;
+	outline-offset: -3px;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	margin: 0;
+    font-family: monaco;
+    text-align: center;
+	font-size: 32px;
+	line-height: 48px;
+    display: flex;
+	min-height: 48px;
+	min-width: 24px;
+    justify-content: center;
+    align-items: center;
+}
+.DatePlayer {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+.DatePlayer .dateSelector {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+	padding: 0 0.3em;
+	border-radius: 0;
+    text-align: center;
+    border: solid 1px black;
+}
+.DatePlayer .dateSelector > .date,
+.DatePlayer .dateSelector > .month,
+.DatePlayer .dateSelector > .year {
+	font-size: 32px;
+	padding: 0 0.3em;
+    border: none;
+}
+.DatePlayer .previousDateButton > button {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	border-right: none;
+}
+.DatePlayer .nextDateButton > button {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-left: none;
+}
+.DatePlayer > .SwitchComponent > .toggleButton {
+    font-family: helvetica;
+    outline: none;
+}
+.DatePlayer > .SwitchComponent.back > .toggleButton {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+	margin-left: 4px;
+}
+.DatePlayer > .SwitchComponent.go > .toggleButton {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.DatePlayer > .SwitchComponent > .toggleButton .on {
+	fill: lightgray;
+}
