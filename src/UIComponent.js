@@ -79,7 +79,7 @@ UIComponent.prototype.removeComponent = function () {
 		return
 	}
 	parent.removeChild(this.component())
-
+	
 	if (this._messageReceiveEventListener) {
 		window.removeEventListener('message', this._messageReceiveEventListener)
 		this._messageReceiveEventListener = null
