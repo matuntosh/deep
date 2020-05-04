@@ -28,6 +28,9 @@
 	align-content: center;
 	box-sizing: content-box;
 }
+.DatePlayer * {
+	box-sizing: content-box;
+}
 .DatePlayer .dateSelector {
     display: inline-flex;
     flex-direction: row;
