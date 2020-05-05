@@ -21,6 +21,7 @@ IN AN ACTION OF CONTRACT, TORTOR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/* deprecated */
 function inherits(ctor, superCtor) {
 	"use strict";
 	ctor.super_ = superCtor;
