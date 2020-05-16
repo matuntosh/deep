@@ -1,4 +1,22 @@
 class SwitchComponent extends LabeledComponent {
+	static resumeSvgString(className) {
+		return '<svg width="24" height="48" viewBox="0 0 6.3499999 12.7"><path class="' + className + '" d="M 1.5875,2.1166667 5.8208333,6.35 1.5875,10.583333 Z" /></svg>'
+	}
+	static backSvgString(className) {
+		return '<svg width="24" height="48" viewBox="0 0 6.3499999 12.7"><path class="' + className + '" d="M 5.2916666,2.1166667 1.0583333,6.35 5.2916666,10.583333 Z" /></svg>'
+	}
+	static PauseResumeSwitch(name, on, action) {
+		return new SwitchComponent(name, on, action, {
+			on: SwitchComponent.resumeSvgString('on'),
+			off: SwitchComponent.resumeSvgString('off')
+		})
+	}
+	static PauseBackSwitch(name, on, action) {
+		return new SwitchComponent(name, on, action, {
+			on: SwitchComponent.backSvgString('on'),
+			off: SwitchComponent.backSvgString('off')
+		})
+	}
 	constructor(name, on, switchAction, switchLabelOption) {
 		super(name, switchAction)
 		this._on = on
@@ -46,7 +64,7 @@ class SwitchComponent extends LabeledComponent {
 			this._switch.innerHTML = this.labelAtState(this.on())
 			this._switch.addEventListener('mouseup', (evt) => {
 				this.on(!this.on())
-				this.focus()
+				this._switch.focus()
 			}, false)
 		}
 		return this._switch

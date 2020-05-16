@@ -260,63 +260,64 @@ LabeledComponent.prototype.size = function (num) {
 	this.valueField().size = num;
 };
 
-function ValueComponent(name, value) {
-	LabeledComponent.call(this, name);
-	this._value = value;
-	this._valueComponent = null;
-}
-inherits(ValueComponent, LabeledComponent);
-ValueComponent.prototype.createComponent = function () {
-	let c = LabeledComponent.prototype.createComponent.call(this);
-	c.appendChild(this.valueComponent());
-	return c;
-};
-ValueComponent.prototype.valueComponent = function () {
-	if (!this._valueComponent) {
-		this._valueComponent = document.createElement('label')
-		this._valueComponent.className = 'value'
-		if (this.value() !== undefined) {
-			this._valueComponent.innerHTML = this.value()
-		}
-	}
-	return this._valueComponent;
-};
-ValueComponent.prototype.value = function (value) {
-	if (value !== undefined) {
+class ValueComponent extends LabeledComponent {
+	constructor(name, value) {
+		super(name)
 		this._value = value
-		this.valueComponent().innerHTML = this._value
+		this._valueComponent = null
 	}
-	return this._value
+	createComponent() {
+		let c = super.createComponent()
+		c.appendChild(this.valueComponent())
+		return c
+	}
+	valueComponent() {
+		if (!this._valueComponent) {
+			this._valueComponent = document.createElement('label')
+			this._valueComponent.className = 'value'
+			if (this.value() !== undefined) {
+				this._valueComponent.innerHTML = this.value()
+			}
+		}
+		return this._valueComponent
+	}
+	value(value) {
+		if (value !== undefined) {
+			this._value = value
+			this.valueComponent().innerHTML = this._value
+		}
+		return this._value
+	}
 }
 
-function DialogComponent () {
-    UIComponent.call(this);
-	this._parentComponentStyle = null;
-}
-inherits(DialogComponent, UIComponent);
-DialogComponent.prototype.createComponent = function () {
-    let c = UIComponent.prototype.createComponent.call(this),
-        self = this;
-    c.addEventListener('mouseup', function (evt) {
-        self.removeComponent();
-    });
-    return c;
-};
-DialogComponent.prototype.appendTo = function (toComponent) {
-	UIComponent.prototype.appendTo.call(this, toComponent);
-	this._parentComponentStyle = {
-		overflow: toComponent.style.overflow,
-		height: toComponent.style.height
-	};
-	toComponent.style.overflow = 'hidden';
-	toComponent.style.height = '100%';
-};
-DialogComponent.prototype.removeComponent = function () {
-	let parentComponent = this.component().parentElement;
-	UIComponent.prototype.removeComponent.call(this);
-	if (parentComponent && this._parentComponentStyle) {
-		parentComponent.style.overflow = this._parentComponentStyle.overflow;
-		parentComponent.style.height = this._parentComponentStyle.height;
-		this._parentComponentStyle = null;
+class DialogComponent extends UIComponent {
+	constructor() {
+		super()
+		this._parentComponentStyle = null
 	}
-};
+	createComponent() {
+		let c = super.createComponent()
+		c.addEventListener('mouseup', (evt) => {
+			this.removeComponent()
+		})
+		return c
+	}
+	appendTo(toComponent) {
+		super.appendTo(toComponent)
+		this._parentComponentStyle = {
+			overflow: toComponent.style.overflow,
+			height: toComponent.style.height
+		}
+		toComponent.style.overflow = 'hidden'
+		toComponent.style.height = '100%'
+	}
+	removeComponent() {
+		let parentComponent = this.component().parentElement
+		super.removeComponent()
+		if (parentComponent && this._parentComponentStyle) {
+			parentComponent.style.overflow = this._parentComponentStyle.overflow
+			parentComponent.style.height = this._parentComponentStyle.height
+			this._parentComponentStyle = null
+		}
+	}
+}

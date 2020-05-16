@@ -45,39 +45,31 @@ class DatePlayer extends UIComponent {
 		c.appendChild(this.pauseResumeSwitch().component())
 		return c
 	}
-	previousDateButtonSvgString() {
-		return '<svg viewBox="0 0 6.3499999 12.7" height="48" width="24"><path d="M 4.2333255,2.1166666 2.1166588,6.3499999 4.2333255,10.583333" style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /></svg>'
-	}
 	previousDateButton() {
 		if (!this._previousDateButton) {
-			var b = new ButtonComponent(this.previousDateButtonSvgString(), () => {
+			this._previousDateButton = ButtonComponent.PreviousButton((b) => {
 				if (b.component().disabled) {
 					return
 				}
 				b.component().disabled = true
 				this.previousDate()
 			})
-			b.component().classList.add('previousDateButton')
-			b.visible(this.showButtons())
-			this._previousDateButton = b
+			this._previousDateButton.component().classList.add('previousDateButton')
+			this._previousDateButton.visible(this.showButtons())
 		}
 		return this._previousDateButton
 	}
-	nextDateButtonSvgString() {
-		return '<svg version="1.1" viewBox="0 0 6.3499999 12.7" height="48" width="24"><path d="M 2.1166666,2.1166666 4.2333333,6.3499999 2.1166666,10.583333" style="fill:none;stroke:#000000;stroke-width:1.32291666;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" /></svg>'
-	}
 	nextDateButton() {
 		if (!this._nextDateButton) {
-			var b = new ButtonComponent(this.nextDateButtonSvgString(), () => {
-					if (b.component().disabled) {
-						return
-					}
-					b.component().disabled = true
-					this.nextDate()
-				})
-			b.component().classList.add('nextDateButton')
-			b.visible(this.showButtons())
-			this._nextDateButton = b
+			this._nextDateButton = ButtonComponent.NextButton(() => {
+				if (this._nextDateButton.component().disabled) {
+					return
+				}
+				this._nextDateButton.component().disabled = true
+				this.nextDate()
+			})
+			this._nextDateButton.component().classList.add('nextDateButton')
+			this._nextDateButton.visible(this.showButtons())
 		}
 		return this._nextDateButton
 	}
@@ -229,39 +221,20 @@ class DatePlayer extends UIComponent {
 			}
 		}
 	}
-	pauseResumeSwitchImageSvgString(className) {
-		if (className) {
-			return '<svg width="24" height="48" viewBox="0 0 6.3499999 12.7"><path class="' + className + '" d="M 1.5875,2.1166667 5.8208333,6.35 1.5875,10.583333 Z" /></svg>'
-		}
-		return '<svg width="24" height="48" viewBox="0 0 6.3499999 12.7"><path d="M 1.5875,2.1166667 5.8208333,6.35 1.5875,10.583333 Z" /></svg>'
-	}
 	pauseResumeSwitch() {
 		if (!this._pauseResumeSwitch) {
-			var s = new SwitchComponent('', this.playing(), (s) => {
+			this._pauseResumeSwitch = SwitchComponent.PauseResumeSwitch('', this.playing(), (s) => {
 				this.pauseResume(s.on())
-			}, {
-				on: this.pauseResumeSwitchImageSvgString("on"),
-				off: this.pauseResumeSwitchImageSvgString()
 			})
-			s.component().classList.add('go')
-			this._pauseResumeSwitch = s
-			s.visible(this.showButtons())
+			this._pauseResumeSwitch.component().classList.add('go')
+			this._pauseResumeSwitch.visible(this.showButtons())
 		}
 		return this._pauseResumeSwitch
 	}
-	pauseBackSwitchImageSvgString(className) {
-		if (className) {
-			return '<svg width="24" height="48" viewBox="0 0 6.3499999 12.7"><path class="' + className + '" d="M 5.2916666,2.1166667 1.0583333,6.35 5.2916666,10.583333 Z" /></svg>'
-		}
-		return '<svg width="24" height="48" viewBox="0 0 6.3499999 12.7"><path d="M 5.2916666,2.1166667 1.0583333,6.35 5.2916666,10.583333 Z" /></svg>'
-	}
 	pauseBackSwitch() {
 		if (!this._pauseBackSwitch) {
-			this._pauseBackSwitch = new SwitchComponent('', this.playingBack(), (s) => {
+			this._pauseBackSwitch = SwitchComponent.PauseBackSwitch('', this.playingBack(), (s) => {
 				this.pauseResumeBack(s.on())
-			}, {
-				on: this.pauseBackSwitchImageSvgString("on"),
-				off: this.pauseBackSwitchImageSvgString()
 			})
 			this._pauseBackSwitch.component().classList.add('back')
 			this._pauseBackSwitch.visible(this.showButtons())

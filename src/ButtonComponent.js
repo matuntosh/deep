@@ -1,8 +1,20 @@
 class ButtonComponent extends UIComponent {
+	static nextSvgString() {
+		return '<svg version="1.1" viewBox="0 0 6.3499999 12.7" height="48" width="24"><path d="M 2.1166666,2.1166666 4.2333333,6.3499999 2.1166666,10.583333" style="fill:none;stroke:#000000;stroke-width:1.32291666;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" /></svg>'
+	}
+	static previousSvgString() {
+		return '<svg viewBox="0 0 6.3499999 12.7" height="48" width="24"><path d="M 4.2333255,2.1166666 2.1166588,6.3499999 4.2333255,10.583333" style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /></svg>'
+	}
+	static NextButton(action) {
+		return new ButtonComponent(this.nextSvgString(), action)
+	}
+	static PreviousButton(action) {
+		return new ButtonComponent(this.previousSvgString(), action)
+	}
 	constructor(html, action) {
 		super()
 		this._html = html
-		this._action = action
+		this._action = action || function (button) {}
 		this._button = null
 		this.shiftKey = false
 	}
