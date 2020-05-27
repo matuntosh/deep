@@ -1,5 +1,5 @@
 class DatePlayer extends UIComponent {
-	constructor(selectDateAction, selectorChangeAtion, showButtons) {
+	constructor(selectDateAction, selectorChangeAtion, showButtons, nextDateInterval) {
 		super()
 		this.shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		this.shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -27,7 +27,7 @@ class DatePlayer extends UIComponent {
 		this._monthCollection = null
 		this._yearCollection = null
 
-		this._nextDateInterval = null
+		this._nextDateInterval = nextDateInterval || 0
 	}
 	showButtons(aBoolean) {
 		if (aBoolean !== undefined) {
@@ -372,7 +372,10 @@ class DatePlayer extends UIComponent {
 		this.updateSelection()
 		var date = this.dates()[index]
 		if (this.selectDateAction && sender === undefined) {
-			this.selectDateAction(date, index)
+			let result = this.selectDateAction(date, index)
+			if (result) {
+				this.didLoad()
+			}
 		} else {
 			this.didLoad()
 		}
